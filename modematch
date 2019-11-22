@@ -1,0 +1,33 @@
+l l1 10 0 n0
+fsig sig1 l1 amp 1 0
+s s1 1 n0 n1
+
+lens lens1 30 n1 n02
+s s2 1 n02 n03
+lens lens2 30 n03 n04
+s s3 1 n04 n05
+
+ad ad1 0 n05
+
+m Min 0.9937 0.0063 0 n05 n2
+s cav1 1 n2 n3
+M Mend 1 0 -0.0048 n3 n4
+
+cav cavity1 Min n2 Mend n3  
+
+attr Mend Rc 15
+
+set r ad1 abs
+
+xd ETM Mend z
+xd ITM Min z
+
+tf sus 1 0 p 1 100000
+
+attr Min mass 0.1 zmech sus
+attr Mend mass 0.1 zmech sus
+
+trace 2
+
+xaxis sig1 f log 0.1 1k 1000
+yaxis log abs
