@@ -1,0 +1,41 @@
+% Nergis mavalvala (Ligo-P060025-00-R)
+
+l l1 10000 0 n0
+fsig sig1 l1 amp 1 0
+
+s s1 0.5 n0 n1
+bs bs1 0.1 0.9 0 45 n1 n2 n3 dump
+s s2 1 n2 n4 
+bs bs2 1 0 0 45 n4 n5 dump dump
+s s02 1 n5 n05
+ad ad1 1 n05
+mod EOM 15M 0.001 1 pm n05 n6
+
+s s3 10000 n6 n7
+
+bs bs3 1 0 0 45 n7 n8 dump dump
+s s4 1 n8 n9
+bs bs4 1 0 0 45 n9 n10 dump n11
+s s5 1 n3 n11
+s s6 1 n10 n12
+m min 0.9999 0.0001 0 n12 n13
+s cav1 1 n13 n14
+m mend 1 0 -0.063 n14 n15
+
+cav cavity min n13 mend n14
+
+tf sus 1 0 p 1 100000
+tf sus1 1 0 p 1 100000
+
+attr min Rc 15
+attr mend Rc 15  
+
+attr min mass 0.1 zmech sus
+attr mend mass 0.1 zmech sus1
+
+xd ETM mend z
+xd ITM min z
+trace 2
+
+xaxis sig1 f log 0.1 1k 1000
+yaxis log abs:deg
