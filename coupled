@@ -1,0 +1,42 @@
+l l1 1000000 0 n0
+fsig sig1 l1 amp 1 0
+
+s s1 0.2 n0 n1
+
+maxtem 3
+
+lens lens1 5 n1 n02        % Using mode matching telescope
+s s2 1 n02 n03
+lens lens2 10 n03 n04
+s s3 1 n04 n05
+
+ad ad1 0 n05
+
+m Min 0.9937 0.0063 0 n05 n4
+s cav1 1.2 n4 n5
+M Mmid 0.937 0.063 0 n5 n6
+s cav2 1.4 n6 n7
+m Mend 1 0 -0.063 n7 n8
+
+tf sus 1 0 p 1 100000
+tf sus1 1 0 p 1 100000
+tf sus2 1 0 p 1 100000
+
+
+cav cavity1 Min n4 Mmid n5  
+cav cavity2 Mmid n6 Mend n7
+trace 2
+
+attr Min Rc 15
+attr Mend Rc 15
+
+attr Min mass 0.0993 zmech sus
+attr Mend mass 0.102 zmech sus1
+attr Mmid mass 0.0993 Zmech sus2
+
+xd ETM Mend z
+xd MTM Mmid z
+xd ITM Min z
+
+xaxis sig1 f log 0.1 3k 1000
+yaxis log abs
